@@ -1,0 +1,74 @@
+Hey
+ import random
+ 
+ 
+ class Rectangle:
+     def __init__(self):
+         
+         def randomize_start_point():
+             x = random.choice(range(1, 101))
+             y = random.choice(range(1, 101))
+             start_point = (x, y)
+             return start_point
+     
+         def randomize_end_point():
+             x = random.choice(range(self.start_point[0] + 1, 101))
+             y = random.choice(range(1, self.start_point[1]))
+             end_point = (x, y)
+             return end_point
+     
+         self.start_point = randomize_start_point()
+         self.end_point = randomize_end_point()
+         self.width = self.end_point[0] - self.start_point[0]
+         self.height = self.start_point[1] - self.end_point[1]
+         
+     def __str__(self):
+         return(f"""
+ ### Rectangle ###
+ My Width: {self.width}
+ My Height: {self.height}
+ My Surface: {self.get_surface()}
+ My Perimeter: {self.get_perimeter()}""""")
+     
+     def get_surface(self):
+         return self.width * self.height
+     
+     def get_perimeter(self):
+         return (2 * self.width + 2 * self.height)
+ 
+     
+ def filter_by_size(rectangels, threshold):
+     filtered_rectangles = []
+     for rectangle in rectangels:
+         if rectangle.get_surface() > threshold:
+             filtered_rectangles.append(rectangle)
+     return filtered_rectangles
+ 
+ 
+ def filter_by_perimeter(rectangels, threshold):
+     filtered_rectangles = []
+     for rectangle in rectangels:
+         if rectangle.get_perimeter() > threshold:
+             filtered_rectangles.append(rectangle)
+     return filtered_rectangles
+ 
+ 
+ def rand_rects():
+     return random.choice(range(1, 51))
+ 
+ 
+ def create_rectangles():
+     random_number = rand_rects()
+     rectangels = []
+     i = 0
+     while i < random_number:
+         rectangels.append(Rectangle())
+         i += 1
+     return rectangels
+ 
+ 
+ rectangels = create_rectangles()
+ filtered_by_perimeter = filter_by_perimeter(rectangels, 30)
+ filtered_by_size = filter_by_size(filtered_by_perimeter, 900)
+ for rectangle in filtered_by_size:
+     print(f"{rectangle.__str__()}")
